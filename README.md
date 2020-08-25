@@ -1,2 +1,2 @@
 # K210-NN
-Neural Network on K210 MCU
+Neural Network and FFT on K210 MCU
