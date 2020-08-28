@@ -1,7 +1,7 @@
 import sensor, image, lcd, time
 import KPU as kpu
 
-lcd.init(freq=15000000)
+lcd.init(freq=15000000, invert=1)#
 sensor.reset()
 sensor.set_pixformat(sensor.RGB565)
 sensor.set_framesize(sensor.QVGA)
@@ -24,7 +24,7 @@ while(True):
     clock.tick()
     img = sensor.snapshot()
     code = kpu.run_yolo2(task, img)
-    print("FPS:%.3f"%clock.fps())
+    #print("FPS:%.3f"%clock.fps())
     img = img.draw_string(1,10,"FPS:%.3f"%clock.fps())
     if code:
         for i in code:
@@ -32,6 +32,5 @@ while(True):
             for i in code:
                 img = img.draw_string(i.x(), i.y(), classes[i.classid()])
                 img = img.draw_string(i.x(), i.y()+12, "%.3f"%i.value())
-    a = lcd.display(img)
-
-a = kpu.deinit(task)
+    lcd.display(img)
+kpu.deinit(task)
